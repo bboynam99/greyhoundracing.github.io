@@ -1,0 +1,101 @@
+/*reset*/
+a, abbr, acronym, address, applet, article, aside, audio,
+b, blockquote, big, body,
+center, canvas, caption, cite, code, command,
+datalist, dd, del, details, dfn, dl, div, dt,
+em, embed,
+fieldset, figcaption, figure, font, footer, form,
+h1, h2, h3, h4, h5, h6, header, hgroup, html,
+i, iframe, img, ins,
+kbd,
+keygen,
+label, legend, li,
+meter,
+nav,
+object, ol, output,
+p, pre, progress,
+q,
+s, samp, section, small, span, source, strike, strong, sub, sup,
+table, tbody, tfoot, thead, th, tr, tdvideo, tt,
+u, ul,
+var{
+    background: transparent;
+    border: 0 none;
+    font-size: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+    vertical-align: top; 
+}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+table, table td {padding:0;border:none;border-collapse:collapse;}
+img {vertical-align:top;}
+embed {vertical-align:top;}
+/*main*/
+root {display: block;}
+body{
+    background-color: #000;
+    font-family: "Arial", sans-serif;
+}
+*, *:before, *:after {
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+input, input:before, input:after{
+   -webkit-user-select: initial;
+   -khtml-user-select: initial;
+   -moz-user-select: initial;
+   -ms-user-select: initial;
+   user-select: initial;
+}
+::selection {background:transparent;color:inherit;}
+::-moz-selection {background:transparent;color:inherit;}
+#canvas{position:fixed;}
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering:-o-crisp-edges;
+    image-rendering:-webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+	-ms-touch-action: none;
+}
+.ani_hack{
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent; /* mobile webkit */
+}
+/*game_show_box*/
+.game_show_box{position: fixed; background-color:#130e2a; top: 0px; left: 0px; width: 100%; height: 100%; color:#FFF; padding:10px; line-height:150%; display:none;}
+.game_show_box h1{font-size:30px;}
+.closeBtn{font-size:18px; cursor:pointer; padding:5px 10px; border-radius:6px;}
+/***************FONTS*******************/
+@font-face {/*TTF: supports all browsers except Opera Mini and <IE9+(11), eot: for IE*/
+    font-family: 'Arial-Bold';
+    src: url('arialbd-webfont.eot');
+    src: url('arialbd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('arialbd-webfont.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'RobotoCondensed-Bold';
+    src: url('RobotoCondensed-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RobotoCondensed-BoldItalic';
+  src: url('RobotoCondensed-BoldItalic.ttf')  format('truetype');
+}
+@font-face {
+	font-family: 'Digital-7';
+	src: url('Digital-7.eot?') format('eot'),
+	     url('Digital-7.ttf')  format('truetype');
+}

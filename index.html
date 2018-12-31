@@ -1,11 +1,126 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+<!DOCTYPE html><html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <title>Greyhound Racing, Dog Racing, Litecoin and Dogecoin Gambling | Cryptogames.casino</title>
+    <meta name="Keywords" content="Greyhound Racing, Dog Racing, Cryptogames, Bitcoin games, Litecoin games, Dogecoin games, gambling, Dice, Reversi Battle, chess">
+    <meta name="Description" content="Greyhound Racing, Dog Racing is a gambling site to play with Bitcoin, Litecoin and Dogecoin.">
+    <meta itemprop='name' content="Cryptogames.casino"/>
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/orientation_utils.css" type="text/css">
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/createjs-2015.11.26.min.js"></script>
+    <script type="text/javascript" src="js/howler.min.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/lib.js"></script>
+	<script type="text/javascript" src="js/gConfig.js"></script>
+    <script type="text/javascript" src="js/CLang.js"></script>
+    <script type="text/javascript" src="js/ctl_utils.js"></script>
+    <script type="text/javascript" src="js/sprite_lib.js"></script>
+    <script type="text/javascript" src="js/CGameSettings.js"></script>
+    <script type="text/javascript" src="js/CPreloader.js"></script>
+    <script type="text/javascript" src="js/CMain.js"></script>
+    <script type="text/javascript" src="js/CTextButton.js"></script>
+    <script type="text/javascript" src="js/CToggle.js"></script>
+    <script type="text/javascript" src="js/CGfxButton.js"></script>
+    <script type="text/javascript" src="js/CSpriteButton.js"></script>
+    <script type="text/javascript" src="js/CGame.js"></script>
+    <script type="text/javascript" src="js/CTrackBg.js"></script>
+    <script type="text/javascript" src="js/CInterface.js"></script>
+    <script type="text/javascript" src="js/CBetPanel.js"></script>
+    <script type="text/javascript" src="js/CChipPanel.js"></script>
+    <script type="text/javascript" src="js/CSimpleBetPanel.js"></script>
+    <script type="text/javascript" src="js/CForecastPanel.js"></script>
+    <script type="text/javascript" src="js/CBetList.js"></script>
+    <script type="text/javascript" src="js/CFichesController.js"></script>
+    <script type="text/javascript" src="js/CButBet.js"></script>
+    <script type="text/javascript" src="js/CVector2.js"></script>
+    <script type="text/javascript" src="js/CMsgBox.js"></script>
+    <script type="text/javascript" src="js/CGreyhound.js"></script>
+    <script type="text/javascript" src="js/CTweenController.js"></script>
+    <script type="text/javascript" src="js/CRankingGui.js"></script>
+    <script type="text/javascript" src="js/CArrivalPanel.js"></script>
+    <script type="text/javascript" src="js/CWinPanel.js"></script>
+    <script type="text/javascript" src="js/CButStartRace.js"></script>
+    <script type="text/javascript" src="js/CAreYouSurePanel.js"></script>
+    <!--<script type="text/javascript" src="js/CMenu.js"></script>
+    <script type="text/javascript" src="js/CCreditsPanel.js"></script>
+    <script type="text/javascript" src="js/CLosePanel.js"></script>-->
 </head>
+<body ondragstart="return false;" ondrop="return false;" >
+    <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+    <script>
+        $(document).ready(function () {
+			gConfig.onDeviceReady();
+			//
+            var oMain = new CMain({
+                min_bet:1,            //MINIMUM BET
+                max_bet:1000,          //MAXIMUM BET
+                win_occurrence: 30,   //WIN OCCURRENCE
+                chip_values:[1,5,10,25,50,100], //VALUE OF CHIPS
+                show_credits:false, //SET THIS VALUE TO FALSE IF YOU DON'T TO SHOW CREDITS BUTTON
+                fullscreen:true, //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
+                check_orientation:true,     //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES
 
-<body>
-Greyhound Racing
+            });
+			//
+            /*$(oMain).on("start_session", function (evt) {
+            });
+            $(oMain).on("end_session", function (evt) {
+            });
+            $(oMain).on("bet_placed", function (evt, iTotBet) {
+            }); 
+            $(oMain).on("save_score", function (evt, iScore) {
+            });
+            $(oMain).on("show_interlevel_ad", function (evt) {
+            });
+            $(oMain).on("share_event", function (evt, iScore) {
+            });*/
+			//
+            if(isIOS()){
+                setTimeout(function(){sizeHandler();}, 200);
+            } else {
+                sizeHandler();
+            }
+        });
+		//
+		$(function(){
+			var rx = /INPUT|SELECT|TEXTAREA/i;
+			$(document).bind("keydown keypress", function(e){
+				if( e.which == 8 ){ // 8 == backspace
+					if(!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly ){
+						if($("#game_guide").is(":visible")){
+							e.preventDefault();$("#game_guide").hide();
+						} else if(window.s_oInterface){
+							e.preventDefault();
+							s_oInterface._onExit();
+						} else{
+							e.preventDefault();
+							var exit = confirm("Bạn muốn thoát khỏi trò chơi?");
+							if(exit)history.go(-1);
+						}
+					}
+				}
+			});
+		});
+    </script>
+    <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
+    <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
+    <div id="block_game" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
+    <div id="game_guide" class="game_show_box">
+    	<div style="overflow-y:auto; padding-top:5px;">
+            <h1 style="text-align:center;">Hướng dẫn</h1>
+            <p style="font-weight:bold;">Cách đặt cửa:</p>
+            <ul style="padding-left:10px;">
+                <li>WINS - 1th: (ví dụ) Bạn đặt cửa WINS-1th cho con số 1(DOG-1) chỉ khi nào DOG-1 về nhất thì bạn chiến thắng.</li>
+                <li>PLACE - 2th: Bạn đặt cửa PLACE-2th cho DOG-1 bạn sẽ chiến thắng khi DOG-1 về nhất hoặc về nhì.</li>
+                <li>SHOW - 3th: Bạn đặt cửa SHOW-3th cho DOG-1 bạn sẽ chiến thắng khi DOG-1 về nhất, về nhì hoặc về ba.</li>
+                <li>Dự đoán 2 đội về đầu: Bạn chọn hai đội về nhất và nhì để đặt cửa nếu kết quả chính xác bạn sẽ chiến thắng với tỉ lệ thưởng lớn.</li>
+            </ul>
+            <p style="padding:10px 0 20px 0;">(Bạn có thể đặt nhiều cửa và chiến thắng nhiều giải, số tiền thắng bằng số tiền đặt cược nhân với tỉ lệ tương ứng của mỗi cửa)</p>
+            <button class="closeBtn" onClick="$('#game_guide').hide()">Close</button>
+        </div>
+    </div>
 </body>
 </html>
