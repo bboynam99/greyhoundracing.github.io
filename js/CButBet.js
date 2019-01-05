@@ -41,6 +41,15 @@ function CButBet(iXPos, iYPos, oSprite, iScaleFiches,oParentContainer, iStyle) {
         _oParentContainer.removeChild(_oContainer);
     };
 	//
+    this.setVisibleB = function (bVisible) {
+		if(bVisible){
+			_oButton.alpha = 1;
+		} else{
+			_oButton.alpha = 0.5;
+		}
+		this.block(!bVisible);
+    };
+	//
     this.setVisible = function (bVisible) {
         _oButton.visible = bVisible;
     };

@@ -70,21 +70,21 @@ function CBetPanel(){
         //
         _aPages = new Array();
         _aPages[0] = new CSimpleBetPanel(0,0,_oContainerPages);
-        _aPages[1] = new CForecastPanel(BET_PANEL_WIDTH,0,_oContainerPages);
+        //_aPages[1] = new CForecastPanel(BET_PANEL_WIDTH,0,_oContainerPages);
 		//
         _oChipPanel = new CChipPanel(773,230,s_oStage);
-        //
-        _oTextHelpPage = new createjs.Text(eval("TEXT_HELP_PAGE_"+_iCurPage), "24px " + PRIMARY_FONT, "#fff");
+        //tron
+        /*_oTextHelpPage = new createjs.Text(eval("TEXT_HELP_PAGE_"+_iCurPage), "24px " + PRIMARY_FONT, "#fff");
         _oTextHelpPage.textAlign = "right";
         _oTextHelpPage.textBaseline = "alphabetic";
         _oTextHelpPage.x = BET_PANEL_X+BET_PANEL_WIDTH-10;
         _oTextHelpPage.y = 188
-        s_oStage.addChild(_oTextHelpPage);
-		//
-        _oArrowLeft = new CGfxButton(BET_PANEL_X + 7,CANVAS_HEIGHT/2,s_oSpriteLibrary.getSprite("arrow_left"),s_oStage);
+        s_oStage.addChild(_oTextHelpPage);*/
+		//tron
+        /*_oArrowLeft = new CGfxButton(BET_PANEL_X + 7,CANVAS_HEIGHT/2,s_oSpriteLibrary.getSprite("arrow_left"),s_oStage);
         _oArrowLeft.addEventListener(ON_MOUSE_UP,this._onArrowLeft,this);
         _oArrowRight = new CGfxButton(BET_PANEL_X + oSpriteBg.width -7,CANVAS_HEIGHT/2,s_oSpriteLibrary.getSprite("arrow_right"),s_oStage);
-        _oArrowRight.addEventListener(ON_MOUSE_UP,this._onArrowRight,this);
+        _oArrowRight.addEventListener(ON_MOUSE_UP,this._onArrowRight,this);*/
 		//
         _oMsgBox = new CMsgBox();
         this.refreshButtonPos(s_iOffsetX, s_iOffsetY);
@@ -95,8 +95,8 @@ function CBetPanel(){
         _oButFullscreen && _oButFullscreen.unload();
         _oAudioToggle && _oAudioToggle .unload();
         _oButExit.unload();
-        _oArrowLeft.unload();
-        _oArrowRight.unload();
+        //_oArrowLeft.unload();
+        //_oArrowRight.unload();
         _oMsgBox.unload();
         _oChipPanel.unload();
         for(var i=0;i<_aPages.length;i++)_aPages[i].unload();
@@ -111,8 +111,8 @@ function CBetPanel(){
 		BET_PANEL_Y = (CANVAS_HEIGHT - BET_PANEL_HEIGHT - 70)/2+70;
 		_oContainerPages.y = BET_PANEL_Y;
 		_oMaskPanel.y = BET_PANEL_Y;
-		_oArrowLeft.setY((CANVAS_HEIGHT - 70)/2+70);
-		_oArrowRight.setY((CANVAS_HEIGHT - 70)/2+70);
+		//_oArrowLeft.setY((CANVAS_HEIGHT - 70)/2+70);
+		//_oArrowRight.setY((CANVAS_HEIGHT - 70)/2+70);
     };
     //
     this.setChipSelected = function(iIndex){
@@ -180,12 +180,19 @@ function CBetPanel(){
         _aPages[_iCurPage].setX(-BET_PANEL_WIDTH);
         createjs.Tween.get(_oContainerPages).to({x: BET_PANEL_X+ BET_PANEL_WIDTH}, 500,createjs.Ease.cubicOut).call(function () {s_oBetPanel.refreshPagePos(iPrevPage,-BET_PANEL_WIDTH);});
     };
+	//tron
+	this.updateCredit = function(money){
+		s_iCurMoney = START_CREDIT;
+		//MY_BALANCES[MY_ODDS.COIN_TYPE].available = s_iCurMoney;
+		_oChipPanel.refreshMoney();
+	}
+	
     //
     this.onStartRace = function(){
         if(_iTotBet < MIN_BET){
             _oMsgBox.show(TEXT_ERR_MIN_BET, true, true);//szMsg, forClick, forTimeOut, forTick
         } else{
-            _oMsgBox.show(TEXT_IS_PREPARING, true, false, true);
+            /*_oMsgBox.show(TEXT_IS_PREPARING, true, false, true);
 			var chipRate = GAME_ODDS_RATE[MY_ODDS.COIN_TYPE];
 			s_iCurMoney = Number(MY_BALANCES[MY_ODDS.COIN_TYPE].available);
 			s_iCurMoney = Number(numberFormat(s_iCurMoney - _iTotBet*chipRate, {decimals: 8, clear_decimals: true, sep:""}));
@@ -198,18 +205,35 @@ function CBetPanel(){
 					var rank = shuffle([0,1,2,3,4,5]);//alert(rank)
 					s_oBetPanel.serverResultBetRequest(rank);
 				},2000);
-			}
+			}*/
+			//tron
+			//this.serverResultBetRequest(6);alert(window.betPlace+" - "+_iTotBet);
+			userBetSend(betPlace, _iTotBet, this.serverReturns);
         }
     };
+	//
+    this.serverReturns = function(no1) {//alert(data.finalSymbol)
+		if(no1 < 1)return;
+		no1--;
+		var rank0 = shuffle([0,1,2,3,4,5]);
+		var rank = [no1];
+		for(var i = 0; i < rank0.length; i++){
+			if(rank0[i] != no1)rank.push(rank0[i]);
+		}
+		//alert(rank)
+        this.unload();
+		s_oMain.gotoGame(_iTotBet, rank);
+	}
 	//
     this.serverResultBetRequest = function(rank) {//alert(data.finalSymbol)
         this.unload();
 		s_oMain.gotoGame(_iTotBet, rank);
 	}
     //
-    this.onExit = function(){alert("home")
+    this.onExit = function(){
         //this.unload();
         //s_oMain.gotoMenu();
+		$("#contractModal").modal("show"); 
     };
 	//
     this._onAudioToggle = function () {

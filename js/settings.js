@@ -41,7 +41,8 @@ var DISABLE_SOUND_MOBILE = false;
 var SOURCE_PATH = "";
 //
 //var FREE_COIN = 100;
-var MY_BALANCES = [{name:"FCOIN",available:100},{name:"DOGE",available:9884},{name:"LTC",available:1.345}];
+var START_CREDIT = 0;
+var MY_BALANCES = [{name:"TRX",available:100},{name:"DOGE",available:9884},{name:"LTC",available:1.345}];
 var MY_ODDS = { COIN_TYPE: 0, ODDS:[0,0,0]};
 var GAME_ODDS_RATE = [1,2,0.0002];
 //var GAME_ODDS = [[1,2,3,5,10,20,30,50,100,200],/*"FREE COIN"*/[1,2,3,5,10,20,30,50,100,200],/*DOGE*/[0.0001,0.0002,0.0003,0.0005,0.001,0.002,0.003,0.005,0.01,0.02]/*LTC*/];

@@ -41,7 +41,7 @@ function CGame(iTotBet, rankArr) {
         this.refreshButtonPos(s_iOffsetX, s_iOffsetY);
         if(s_oSoundTrack && s_oSoundTrack.playing() == true)s_oSoundTrack.stop();
         //$(s_oMain).trigger("start_level", 1);
-		if(MY_ODDS.COIN_TYPE == 0){//FCOIN
+		/*if(MY_ODDS.COIN_TYPE == 0){//FCOIN
 			this.generateFinalRank();
 			this._prepareGreyHounds();
         	setTimeout(function(){s_oGame.startRace();},200);
@@ -49,7 +49,11 @@ function CGame(iTotBet, rankArr) {
 			this._generateResultFromServer(rankArr);
 			this._prepareGreyHounds();
         	setTimeout(function(){s_oGame.startRace();},100);
-		}
+		}*/
+		//tron
+		this._generateResultFromServer(rankArr);
+		this._prepareGreyHounds();
+		setTimeout(function(){s_oGame.startRace();},100);
     };
     //@
     this.unload = function () {
@@ -176,9 +180,10 @@ function CGame(iTotBet, rankArr) {
         } else if(_iGreyhoundArrived === 6){
             if(_bWin || _iWin){
 				var chipRate = GAME_ODDS_RATE[MY_ODDS.COIN_TYPE];
-				s_iCurMoney = Number(MY_BALANCES[MY_ODDS.COIN_TYPE].available);
-				s_iCurMoney = Number(numberFormat(s_iCurMoney + _iWin*chipRate, {decimals: 8, clear_decimals: true, sep:""}));
-				MY_BALANCES[MY_ODDS.COIN_TYPE].available = s_iCurMoney;
+				s_iCurMoney = START_CREDIT;//tron
+				//s_iCurMoney = Number(MY_BALANCES[MY_ODDS.COIN_TYPE].available);
+				//s_iCurMoney = Number(numberFormat(s_iCurMoney + _iWin*chipRate, {decimals: 8, clear_decimals: true, sep:""}));
+				//MY_BALANCES[MY_ODDS.COIN_TYPE].available = s_iCurMoney;
                 _oInterface.showWinPanel(_iWin,_aWinList,_aFinalRank);
             } else{//alert(9)
                 //_oInterface.showLosePanel(_aFinalRank);

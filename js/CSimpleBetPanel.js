@@ -29,13 +29,13 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
         oText.x = 180;
         oText.y = 24;
         _oContainer.addChild(oText);
-        var oText = new createjs.Text(TEXT_WINS+" - 1th", "20px " + PRIMARY_FONT, "#fff");
+        var oText = new createjs.Text("PLACE A BET", "20px " + PRIMARY_FONT, "#fff");//TEXT_WINS+" - 1th"
         oText.textAlign = "center";
         oText.textBaseline = "alphabetic";
-        oText.x = 360;
+        oText.x = 500;//360;
         oText.y = 24;
         _oContainer.addChild(oText);
-        var oText = new createjs.Text(TEXT_PLACE+" - 2th", "20px " + PRIMARY_FONT, "#fff");
+        /*var oText = new createjs.Text(TEXT_PLACE+" - 2th", "20px " + PRIMARY_FONT, "#fff");
         oText.textAlign = "center";
         oText.textBaseline = "alphabetic";
         oText.x = 500;
@@ -46,7 +46,7 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
         oText.textBaseline = "alphabetic";
         oText.x = 630;
         oText.y = 24;
-        _oContainer.addChild(oText);
+        _oContainer.addChild(oText);*/
         var oSprite = s_oSpriteLibrary.getSprite("bibs");
         var oData = {
             images: [oSprite],
@@ -115,7 +115,7 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
             var oText = new createjs.Text("x"+s_oGameSettings.getOddWin(i), "20px " + TERTIARY_FONT, "#fff");
             oText.textAlign = "center";
             oText.textBaseline = "middle";
-            oText.x = iX;
+            oText.x = iX+ 140;//iX
             oText.y = iY+18;
             _oContainer.addChild(oText);
             _aGreyhoundWinOdds[i] = oText;
@@ -123,7 +123,7 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
             oBut.addEventListenerWithParams(ON_MOUSE_UP,this._onWinClicked,this,i);
             _aButsWin.push(oBut);
             ////////////////BET PLACE////////////////////
-            var oText = new createjs.Text("x"+s_oGameSettings.getOddPlace(i), "20px " + TERTIARY_FONT, "#fff");
+            /*var oText = new createjs.Text("x"+s_oGameSettings.getOddPlace(i), "20px " + TERTIARY_FONT, "#fff");
             oText.textAlign = "center";
             oText.textBaseline = "middle";
             oText.x = iX + 140;
@@ -143,7 +143,7 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
             _aGreyhoundShowOdds[i] = oText;
             var oBut = new CButBet(oText.x + 60,iY,oSprite,0.7,_oContainer, 1);
             oBut.addEventListenerWithParams(ON_MOUSE_UP,this._onShowClicked,this,i);
-            _aButsShow.push(oBut);
+            _aButsShow.push(oBut);*/
             iY += 67;
         }
     };
@@ -162,6 +162,10 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
     //
     this.clearBet = function(){
         for(var i=0;i<_aGreyhoundSprite.length;i++)_aGreyhoundSprite[i].gotoAndStop("idle");
+		for(var i = 0; i < _aButsWin.length; i++){
+			_aGreyhoundWinOdds[i].visible = true;
+			_aButsWin[i].setVisibleB(true);
+		}
     };
     //
     this._onWinClicked = function(iIndex){
@@ -170,6 +174,13 @@ function CSimpleBetPanel(iX,iY,oParentContainer){
             _aButsWin[iIndex].increaseBet(iFicheValue);
             _aGreyhoundSprite[iIndex].gotoAndPlay("anim");
         }
+		window.betPlace = iIndex+1;
+		for(var i = 0; i < _aButsWin.length; i++){
+			if(i!=iIndex){
+				_aGreyhoundWinOdds[i].visible = false;
+				_aButsWin[i].setVisibleB(false);
+			}
+		}
     };
     //
     this._onPlaceClicked = function(iIndex){

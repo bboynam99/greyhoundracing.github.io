@@ -2,13 +2,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
-    <title>Greyhound Racing, Dog Racing, Litecoin and Dogecoin Gambling | Cryptogames.casino</title>
-    <meta name="Keywords" content="Greyhound Racing, Dog Racing, Cryptogames, Bitcoin games, Litecoin games, Dogecoin games, gambling, Dice, Reversi Battle, chess">
-    <meta name="Description" content="Greyhound Racing, Dog Racing is a gambling site to play with Bitcoin, Litecoin and Dogecoin.">
-    <meta itemprop='name' content="Cryptogames.casino"/>
+    <title>Greyhound Racing, Dog Racing Gambling</title>
+    <meta name="Keywords" content="Greyhound Racing, Dog Racing, Cryptogames, gambling">
+    <meta name="Description" content="Greyhound Racing is a gambling site to play with TRX.">
+    <meta itemprop='name' content=""/>
+    
     <link rel="icon" href="/img/favicon.png" />
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <link rel="stylesheet" href="css/orientation_utils.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/createjs-2015.11.26.min.js"></script>
     <script type="text/javascript" src="js/howler.min.js"></script>
@@ -45,13 +48,19 @@
     <script type="text/javascript" src="js/CButStartRace.js"></script>
     <script type="text/javascript" src="js/CAreYouSurePanel.js"></script>
     <!--<script type="text/javascript" src="js/CMenu.js"></script>
-    <script type="text/javascript" src="js/CCreditsPanel.js"></script>
     <script type="text/javascript" src="js/CLosePanel.js"></script>-->
+	<script src='js/bootstrap.min.js' type='text/javascript'></script>
+	<script src='dist/TronWeb.min.js' type='text/javascript'></script>
+    <script src="js/main.js" type="text/javascript"></script>
 </head>
 <body ondragstart="return false;" ondrop="return false;" >
-    <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+    <div style="position: fixed; background-color: #000; top: 0px; left: 0px; width: 100%; height: 100%"></div>
     <script>
         $(document).ready(function () {
+			waitingDialog.show(''); 
+		});
+		
+		function game_ready(){
 			gConfig.onDeviceReady();
 			//
             var oMain = new CMain({
@@ -83,44 +92,68 @@
             } else {
                 sizeHandler();
             }
-        });
-		//
-		$(function(){
-			var rx = /INPUT|SELECT|TEXTAREA/i;
-			$(document).bind("keydown keypress", function(e){
-				if( e.which == 8 ){ // 8 == backspace
-					if(!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly ){
-						if($("#game_guide").is(":visible")){
-							e.preventDefault();$("#game_guide").hide();
-						} else if(window.s_oInterface){
-							e.preventDefault();
-							s_oInterface._onExit();
-						} else{
-							e.preventDefault();
-							var exit = confirm("Bạn muốn thoát khỏi trò chơi?");
-							if(exit)history.go(-1);
-						}
-					}
-				}
-			});
-		});
+        };
     </script>
     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
     <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your device</p></div>
     <div id="block_game" style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
-    <div id="game_guide" class="game_show_box">
-    	<div style="overflow-y:auto; padding-top:5px;">
-            <h1 style="text-align:center;">Hướng dẫn</h1>
-            <p style="font-weight:bold;">Cách đặt cửa:</p>
-            <ul style="padding-left:10px;">
-                <li>WINS - 1th: (ví dụ) Bạn đặt cửa WINS-1th cho con số 1(DOG-1) chỉ khi nào DOG-1 về nhất thì bạn chiến thắng.</li>
-                <li>PLACE - 2th: Bạn đặt cửa PLACE-2th cho DOG-1 bạn sẽ chiến thắng khi DOG-1 về nhất hoặc về nhì.</li>
-                <li>SHOW - 3th: Bạn đặt cửa SHOW-3th cho DOG-1 bạn sẽ chiến thắng khi DOG-1 về nhất, về nhì hoặc về ba.</li>
-                <li>Dự đoán 2 đội về đầu: Bạn chọn hai đội về nhất và nhì để đặt cửa nếu kết quả chính xác bạn sẽ chiến thắng với tỉ lệ thưởng lớn.</li>
-            </ul>
-            <p style="padding:10px 0 20px 0;">(Bạn có thể đặt nhiều cửa và chiến thắng nhiều giải, số tiền thắng bằng số tiền đặt cược nhân với tỉ lệ tương ứng của mỗi cửa)</p>
-            <button class="closeBtn" onClick="$('#game_guide').hide()">Close</button>
+    
+    
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" id="tronLink-installModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"></h3>
+                    </div>
+                    <div class="modal-body" id="bet-modal-body">
+                    	<div class="info">
+                        	<h1>TronLink Required</h1>
+                        	<p>To start you must install TronLink. TronLink is a TRON wallet for the browser. Once installed, return back and refresh the page.</p>
+                        	<p>You can be <a href="https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec/" target="_blank">installed from the Chrome Webstore</a>.</p>
+                        </div>
+                        <div style="text-align:center;"><img src="img/TronLinkLogo.png" alt="TronLink logo"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        
+         <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" id="tronLink-loginModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"></h3>
+                    </div>
+                    <div class="modal-body" id="bet-modal-body">
+                    	<div class="info">
+                        	<h1>Log in Required</h1>
+                        	<p>TronLink is installed but you must first log in. Open TronLink from the browser bar and set up your first wallet or decrypt a previously-created wallet.</p>
+                        </div>
+                        <div style="text-align:center;"><img src="img/TronLinkLogo.png" alt="TronLink logo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <!-- Modal -->
+        <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" id="contractModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title"></h3>
+                    </div>
+                    <div class="modal-body" id="bet-modal-body">
+                    	<div class="info">
+                        	<h1>Game Smart Contract</h1>
+                        	<p id="contractaddresslink">Contract address:</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

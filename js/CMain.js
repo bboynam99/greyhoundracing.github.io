@@ -29,8 +29,8 @@ function CMain(oData) {
 	//@
     this.preloaderReady = function () {
         //jQuery.getJSON("greyhound_info.json", this.onLoadedJSON); 
-		var data = {"greyhound_names":["thám tử","sâu xám","củ riềng","t-rex","mực","học sinh"],//"greyhound_names":["psycho","all saturdays","the norman","t-rex","nice tuft","baloo"]
-			"odd_win_bet":[3.7,4.8,2.2,10.5,17.2,8.75],
+		var data = {"greyhound_names":["psycho","all saturdays","the norman","t-rex","nice tuft","baloo"],//"greyhound_names":["psycho","all saturdays","the norman","t-rex","nice tuft","baloo"]
+			"odd_win_bet":[1.5,1.8,2,2.2,2.5,3],
 			"odd_place_bet":[1.95,2.55,1.25,5.5,7.75,3.05],
 			"odd_show_bet":[1.25,1.7,1.09,2.55,3.9,1.75],
 			"forecast":[{"first":1,"second":2,"odd":20},{"first":1,"second":3,"odd":8},{"first":1,"second":4,"odd":30},{"first":1,"second":5,"odd":40},{"first":1,"second":6,"odd":23},
@@ -92,7 +92,7 @@ function CMain(oData) {
         s_oSpriteLibrary.addSprite("audio_icon", SOURCE_PATH+"sprites/audio_icon.png");
         s_oSpriteLibrary.addSprite("but_play", SOURCE_PATH+"sprites/but_play.png");
         s_oSpriteLibrary.addSprite("but_restart", SOURCE_PATH+"sprites/but_restart.png");
-        s_oSpriteLibrary.addSprite("but_home", SOURCE_PATH+"sprites/but_home.png");
+        s_oSpriteLibrary.addSprite("but_home", SOURCE_PATH+"sprites/but_credits.png");
         s_oSpriteLibrary.addSprite("msg_box", SOURCE_PATH+"sprites/msg_box.png");
         s_oSpriteLibrary.addSprite("but_fullscreen", SOURCE_PATH+"sprites/but_fullscreen.png");
         s_oSpriteLibrary.addSprite("but_no", SOURCE_PATH+"sprites/but_no.png");
@@ -206,7 +206,7 @@ function CMain(oData) {
 	//
     s_oMain = this;
     _oData = oData;
-    s_iCurMoney = MY_BALANCES[MY_ODDS.COIN_TYPE].available;
+    s_iCurMoney = START_CREDIT;//MY_BALANCES[MY_ODDS.COIN_TYPE].available;
     CHIP_VALUES = oData.chip_values;
     NUM_CHIPS = CHIP_VALUES.length;
     MIN_BET = oData.min_bet;
